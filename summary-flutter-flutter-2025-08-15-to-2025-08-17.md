@@ -1,0 +1,54 @@
+## flutter/flutter
+
+- **[#173879](https://github.com/flutter/flutter/pull/173879): Revert "[ios][tools]do not log "bonjour not found" at all (unless verbose)"**
+  - **Author:** hellohuanlin
+  - **Merged:** 2025-08-16T00:16:36Z
+  - **Description:** Reverts a previous change that intended to suppress "bonjour not found" logs. The original change was not effective due to differences in logging between verbose and non-verbose modes. This revert restores the previous behavior.
+- 🔥 **[#173807](https://github.com/flutter/flutter/pull/173807): Blocks exynos9820 chip from vulkan**
+  - **Author:** gaaclarke
+  - **Merged:** 2025-08-16T00:28:22Z
+  - **Description:** Adds the Exynos 9820 and 9825 chipsets to a blocklist to prevent them from using the Vulkan backend, which resolves a graphics issue. This change causes devices with these chips to fall back to the OpenGL backend.
+- **[#173812](https://github.com/flutter/flutter/pull/173812): Re-add `Linux_android_emu *` tests that had KVM issues, now resolved**
+  - **Author:** matanlurey
+  - **Merged:** 2025-08-15T18:12:14Z
+  - **Description:** Removes the `bringup: true` flag from several Android emulator tests in the CI configuration, indicating that the tests are now considered stable after the resolution of underlying KVM issues.
+- **[#173373](https://github.com/flutter/flutter/pull/173373): Add onHover callback support for TableRowInkWell**
+  - **Author:** lauraywu
+  - **Merged:** 2025-08-15T21:24:54Z
+  - **Description:** Adds an `onHover` callback to `DataRow` and `TableRowInkWell` for hover event handling. This allows developers to respond to hover events on table rows, enabling richer user interactions.
+- **[#173860](https://github.com/flutter/flutter/pull/173860): Reland predictive back route transitions by default**
+  - **Author:** justinmc
+  - **Merged:** 2025-08-15T23:22:41Z
+  - **Description:** Re-enables predictive back route transitions by default on supported Android devices. This feature was previously reverted due to test failures. The default page transitions for Android are now updated to use `PredictiveBackPageTransitionsBuilder`.
+- **[#173867](https://github.com/flutter/flutter/pull/173867): Roll `package:analyzer` forward to `8.1.1`**
+  - **Author:** bkonyi
+  - **Merged:** 2025-08-15T23:52:58Z
+  - **Description:** Updates the `package:analyzer` dependency to version `8.1.1` and rolls forward several other related dependencies.
+- 🔥 **[#170935](https://github.com/flutter/flutter/pull/170935): [a11y] : set isFocused will update isFocusable to true**
+  - **Author:** hannah-hyj
+  - **Merged:** 2025-08-15T23:31:32Z
+  - **Description:** Updates the semantics API to automatically set `isFocusable` to true when `isFocused` is set. This simplifies focus management by no longer requiring developers to manage both properties separately. The change also deprecates the standalone `focusable` property in favor of this new behavior.
+- 🔥 **[#172406](https://github.com/flutter/flutter/pull/172406): Improve `SweepGradient` angle and `TileMode` documentation**
+  - **Author:** SalehTZ
+  - **Merged:** 2025-08-16T14:50:40Z
+  - **Description:** Improves the documentation for `SweepGradient` and `TileMode` to provide clearer guidance on how angles are measured and how tile modes affect sweep gradient rendering. This addresses an issue where the interaction between `startAngle`, `endAngle`, and `TileMode` was a source of confusion.
+- **[#173865](https://github.com/flutter/flutter/pull/173865): Reverts "Implements the Android native stretch effect as a fragment shader (Impeller-only). (#169293)"**
+  - **Author:** app/auto-submit
+  - **Merged:** 2025-08-15T18:35:14Z
+  - **Description:** Reverts a change that implemented the Android native stretch effect as a fragment shader for Impeller. The revert was necessary because the implementation does not work on Metal (iOS/macOS).
+- **[#173803](https://github.com/flutter/flutter/pull/173803): Update the RBE configuration for the recent Clang update**
+  - **Author:** jason-simmons
+  - **Merged:** 2025-08-15T01:47:03Z
+  - **Description:** Updates the RBE configuration to use a new version of the `reclient_cfgs` CIPD package. This change was necessary to align with a recent Clang roll to version 21.
+- **[#173799](https://github.com/flutter/flutter/pull/173799): Remove `luci_flags.parallel_download_builds` and friends**
+  - **Author:** matanlurey
+  - **Merged:** 2025-08-15T01:19:38Z
+  - **Description:** Removes the `delay_collect_builds` and `parallel_download_builds` flags from the LUCI build configurations, as these flags now default to `true`.
+- **[#172793](https://github.com/flutter/flutter/pull/172793): Stop writing legacy `FLUTTER_ROOT/version` file (by default?)**
+  - **Author:** matanlurey
+  - **Merged:** 2025-08-15T01:34:46Z
+  - **Description:** Disables the creation of the legacy `FLUTTER_ROOT/version` file by default. A newer version file, `FLUTTER_ROOT/bin/cache/flutter.version.json`, is now used instead.
+- **[#173809](https://github.com/flutter/flutter/pull/173809): Reverts "Predictive back route transitions by default (#165832)"**
+  - **Author:** app/auto-submit
+  - **Merged:** 2025-08-15T00:21:00Z
+  - **Description:** Reverts a change that enabled predictive back route transitions by default. The revert was necessary because it broke the `Linux_pixel_7pro embedded_android_views_integration_test`.
