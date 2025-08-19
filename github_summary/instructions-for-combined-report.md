@@ -66,7 +66,7 @@ gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> so
     - **Description:** This PR fixes an issue in the `vector_graphics_compiler` where the Z scale value was not being correctly set when parsing SVG matrices. This change ensures that the matrix is correctly constructed, which is important for proper rendering after a recent engine change.
   </example>
 
-3. **Create the Report:** Create the report by assembling the summaries as a list, ordered by most recently merged to least recently merged. If there were no pull requests in the repository within the specified time period, the report should say "No pull requests were merged during this time." Include a header that lists the name of the repo (e.g. "## flutter/packages").
+3. **Create the Report:** Create the report by assembling the summaries into a list with a blank line in between each one. Order the list by the merge date, from newest to oldest. If there were no pull requests in the repository within the specified time period, the report should say "No pull requests were merged during this time." Include a header that lists the name of the repo (e.g. "## flutter/packages").
 
   This is an example of a report for the flutter/flutter repo with two pull requests found:
   <example>
@@ -90,12 +90,12 @@ gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> so
     No pull requests were merged during this time.
   </example>
 
-4. **Save the Individual Report:** Write the report to a markdown file. For the filename, use the format "summary-[repo_account]-[repo_name]-[start_date]-to-[end_date].md". For example, if the report was for flutter/flutter from 2025-08-01 to 2025-08-02, the filename should be "summary-flutter-flutter-2025-08-01-2025-to-2025-08-02.md". Overwrite existing files with the same name if they exist.
+4. **Save the Individual Report:** Write the report to a markdown file inthe "reports" directory. For the filename, use the format "summary-[repo_account]-[repo_name]-[start_date]-to-[end_date].md". For example, if the report was for flutter/flutter from 2025-08-01 to 2025-08-02, the filename should be "summary-flutter-flutter-2025-08-01-2025-to-2025-08-02.md". Overwrite existing files with the same name if they exist.
 
 ## Phase Two: Create the combined report
 
 In this step, you will create a combined report using the exact contents of the individual report files created in phase one. Perform these steps:
 
-1. **Create the Combined Report:** Concatenate the content from all the individual reports created in Phase One into a single text, which will be the "combined report."
+1. **Create the Combined Report:** Concatenate the content from all the individual reports created in Phase One into a single text, which will be the "combined report." Make sure there is at least one blank line between each of the individual reports.
 
-2. **Save the Combined Report:** Write the combined report to a markdown-formatted file. For the filename, use the format "summary-combined-[start_date]-to-[end_date].md". For example, if the report covered activity from 2025-08-01 to 2025-08-02, the filename should be "summary-combined-2025-08-01-2025-to-2025-08-02.md". Overwrite existing files with the same name if they exist.
+2. **Save the Combined Report:** Write the combined report to a markdown-formatted file in the "reports" directory. For the filename, use the format "summary-combined-[start_date]-to-[end_date].md". For example, if the report covered activity from 2025-08-01 to 2025-08-02, the filename should be "summary-combined-2025-08-01-2025-to-2025-08-02.md". Overwrite existing files with the same name if they exist.
