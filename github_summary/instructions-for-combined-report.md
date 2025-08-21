@@ -23,7 +23,7 @@ For each of the repos listed above, follow this exact process to create an indiv
 1. **Gather Merged Pull Requests:** Fetch all pull requests merged in the specified repository from the provided start date to the provided end date. Be sure to retrieave *all* of the relevant pull requests, not just a portion of them. Retrieve the PR number, title, author, merge date, body, and comments using this command:
 
 ```shell
-gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:apps/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
+gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:app/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
 ```
 
 2. **Create a Summary for Each Pull Request**: For each of the remaining pull requests, retrieve additional data and then create a markdown-formatted summary:
@@ -40,7 +40,6 @@ gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> so
       * Changes to the codebase, with particular emphasis on changes to the public API like new classes, new methods, and deprecations.
       * Any GitHub issues that the pull reuqest addresses.
       * Information about the comments added by reviewers (other than simple LGTMs and approvals).
-
       * The author's description of what the pull request is meant to accomplish.
 
   These are examples of the format and structure for a single pull request's summary:
