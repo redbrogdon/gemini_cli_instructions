@@ -13,6 +13,7 @@ These are the GitHub repos that should be included in the combined report are:
 * dart-lang/sdk
 * dart-lang/native
 * dart-lang/ai
+* dart-lang/language
 
 There are two phases to the process of creating a combined report. Follow the instructions for phase one first, and when complete, follow the instructions in phase two.
 
