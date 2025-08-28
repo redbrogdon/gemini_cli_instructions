@@ -2,7 +2,7 @@
 
 This document outlines the comprehensive, step-by-step process for generating a report that details pull request activity over a particular period of time across multiple GitHub repositories (this is called a "combined report"). Follow these instructions carefully to ensure accuracy and efficiency.
 
-These are the GitHub repos that should be included in the combined report are:
+These are the GitHub repos that should be included in the combined report:
 
 * flutter/flutter
 * flutter/packages
