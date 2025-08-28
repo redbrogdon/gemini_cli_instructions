@@ -13,10 +13,12 @@ gh pr list --repo <repository_name> --search "merged:<start_date>..<end_date> so
   a. Get the code changes for the pull request using this shell command:
 
   ```shell
-  gh pr diff <pr_number>
+  gh pr diff <pr_number> | head -n 1000
   ```
 
-  b. Create a markdown-formatted summary of the pull request using all the data retrieved. The format is as follows:
+  b. If the code changes are more than one thousand lines, discard all the lines beyond the first one thousand.
+
+  c. Create a markdown-formatted summary of the pull request using all the data retrieved. The format is as follows:
   * **Number and Title**: A single line that includes the PR number and title. Begin the line with "🔥" if the pull request has more than five comments.  Begin the line with "🔥🔥" if the pull request has more than ten comments. 
   * **Author**: A single line that lists the author of the pull request
   * **Merged**: A single line that lists the date the pull request was merged. Do not include the time, only the date.
