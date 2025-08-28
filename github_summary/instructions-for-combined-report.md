@@ -4,16 +4,16 @@ This document outlines the comprehensive, step-by-step process for generating a 
 
 These are the GitHub repos that should be included in the combined report:
 
-* flutter/flutter
-* flutter/packages
-* flutter/ai
-* flutter/samples
-* flutter/codelabs
-* flutter/website
-* dart-lang/sdk
-* dart-lang/native
 * dart-lang/ai
 * dart-lang/language
+* dart-lang/native
+* dart-lang/sdk
+* flutter/ai
+* flutter/codelabs
+* flutter/flutter
+* flutter/packages
+* flutter/samples
+* flutter/website
 
 There are two phases to the process of creating a combined report. Follow the instructions for phase one first, and when complete, follow the instructions in phase two.
 

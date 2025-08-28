@@ -45,15 +45,16 @@ The `instructions-for-combined-report.md` file outlines a two-phase process to c
 
 The combined report includes activity from the following repositories:
 
+*   `dart-lang/ai`
+*   `dart-lang/language`
+*   `dart-lang/native`
+*   `dart-lang/sdk`
+*   `flutter/ai`
+*   `flutter/codelabs`
 *   `flutter/flutter`
 *   `flutter/packages`
-*   `flutter/ai`
 *   `flutter/samples`
-*   `flutter/codelabs`
 *   `flutter/website`
-*   `dart-lang/sdk`
-*   `dart-lang/native`
-*   `dart-lang/ai`
 
 ### How it Works
 
