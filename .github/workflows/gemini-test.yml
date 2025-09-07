@@ -1,0 +1,34 @@
+name: 'Testing Gemini CLI Actions'
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch:
+
+concurrency:
+  group: '${{ github.workflow }}'
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: 'bash'
+
+jobs:
+  trying:
+    runs-on: 'ubuntu-latest'
+  #  timeout-minutes: 7
+  #  permissions:
+  #    contents: 'read'
+  #    id-token: 'write'
+  #    issues: 'read'
+  #    pull-requests: 'read'
+  #  outputs:
+    steps:
+      - name: 'Run Gemini'
+        id: 'run_gemini'
+        uses: 'google-github-actions/run-gemini-cli@v0' # ratchet:exclude
+        with:
+          gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
+          gemini_model: 'gemini-2.5-pro'
+          prompt: |-
+            Please write me a poem about the Flutter SDK.
