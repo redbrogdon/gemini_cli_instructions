@@ -30,5 +30,6 @@ jobs:
         with:
           gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
           gemini_model: 'gemini-2.5-pro'
+          gemini_debug: true
           prompt: |-
             Please write me a poem about the Flutter SDK.
