@@ -44,7 +44,9 @@ jobs:
           echo "START_DATE=$START_DATE" >> $GITHUB_ENV
       - name: 'Calculate end date'
         run: |
-          echo "YESTERDAY=$(date -d 'yesterday' +'%Y-%m-%d')" >> $GITHUB_ENV
+          END_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
+          echo "Yesterday was: $END_DATE"
+          echo "END_DATE=$END_DATE" >> $GITHUB_ENV
       - name: 'Check out repo'
         uses: 'actions/checkout@v4'
       - name: 'Run Gemini'
