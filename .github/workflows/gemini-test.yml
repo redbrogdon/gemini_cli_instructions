@@ -38,14 +38,14 @@ jobs:
               ]
             }
           prompt: |-
-            Fetch all pull requests merged in the specified repository from the
-            provided start date to the provided end date. Be sure to retrieave
+            Fetch all pull requests merged in flutter/flutter from the
+            provided start date to the provided end date. Be sure to retrieve
             *all* of the relevant pull requests, not just a portion of them.
             Retrieve the PR number, title, author, merge date, body, and
             comments using this command:
 
             ```shell
-            gh pr list --repo <repository_name> --search "merged:2025-09-01..2025-9-07 sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:app/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
+            gh pr list --repo flutter/flutter --search "merged:2025-09-01..2025-9-07 sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:app/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
             ```
 
             Once you retrieve this information, output a summary for each pull
