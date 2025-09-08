@@ -34,7 +34,7 @@ jobs:
           settings: |-
             {
               "coreTools": [
-                "run_shell_command(gh)",
+                "run_shell_command(gh)"
               ]
             }
           prompt: |-
