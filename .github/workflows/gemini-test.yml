@@ -2,7 +2,7 @@ name: 'Testing Gemini CLI Actions'
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Runs every day at midnight
+    - cron: '0 5 * * *' # Runs every day at midnight
   workflow_dispatch:
 
 concurrency:
@@ -25,6 +25,26 @@ jobs:
       issues: 'read'
       pull-requests: 'read'
     steps:
+      - name: 'Calculate start date'
+        run: |
+          DOW=$(date +'%u')
+
+          if [[ "$DOW" -eq 1 ]]; then
+            # If it's Monday, get Friday's date (3 days ago)
+            START_DATE=$(date -d '3 days ago' +'%Y-%m-%d')
+          elif [[ "$DOW" -eq 7 ]]; then
+            # If it's Sunday, get Friday's date (2 days ago)
+            START_DATE=$(date -d '2 days ago' +'%Y-%m-%d')
+          else
+            # Otherwise, just get yesterday's date
+            START_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
+          fi
+
+          echo "The last weekday was: $START_DATE"
+          echo "START_DATE=$START_DATE" >> $GITHUB_ENV
+      - name: 'Calculate end date'
+        run: |
+          echo "YESTERDAY=$(date -d 'yesterday' +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: 'Check out repo'
         uses: 'actions/checkout@v4'
       - name: 'Run Gemini'
@@ -57,11 +77,11 @@ jobs:
 
             ## Step 1: Determine start_date
 
-            The value for start_date is 2025-09-05.
+            The value for start_date is ${{ env.START_DATE }}.
 
             ## Step 2: Determine end_date
 
-            The value for end_date is 2025-09-07.
+            The value for end_date is ${{ env.END_DATE }}.
 
             ## Step 3: Retrieve pull request data
 
@@ -94,24 +114,24 @@ jobs:
             These are examples of the format and structure for a single pull request's summary:
 
             <example>
-            - 🔥 **[#170935](https://github.com/flutter/packages/pull/170935): [a11y] : set isFocused will update isFocusable to true**
-            - **Author:** hannah-hyj
-            - **Merged:** 2025-08-15
-            - **Description:** Updates the semantics API to automatically set `isFocusable` to true when `isFocused` is set. This simplifies focus management by no longer requiring developers to manage both properties separately. The change also deprecates the standalone `focusable` property in favor of this new behavior.
+            🔥 **[#170935](https://github.com/flutter/packages/pull/170935): [a11y] : set isFocused will update isFocusable to true**
+              - **Author:** hannah-hyj
+              - **Merged:** 2025-08-15
+              - **Description:** Updates the semantics API to automatically set `isFocusable` to true when `isFocused` is set. This simplifies focus management by no longer requiring developers to manage both properties separately. The change also deprecates the standalone `focusable` property in favor of this new behavior.
             </example>
 
             <example>
-            - **[#173373](https://github.com/flutter/ai/pull/#173373): Add onHover callback support for TableRowInkWell**
-            - **Author:** lauraywu
-            - **Merged:** 2025-08-15
-            - **Description:** Adds an `onHover` callback to `DataRow` and `TableRowInkWell` for hover event handling. This allows developers to respond to hover events on table rows, enabling richer user interactions.
+            **[#173373](https://github.com/flutter/ai/pull/#173373): Add onHover callback support for TableRowInkWell**
+              - **Author:** lauraywu
+              - **Merged:** 2025-08-15
+              - **Description:** Adds an `onHover` callback to `DataRow` and `TableRowInkWell` for hover event handling. This allows developers to respond to hover events on table rows, enabling richer user interactions.
             </example>
 
             <example>
-            - 🔥🔥 **[#9813](https://github.com/dart-lang/sdk/#173373): [vector_graphics_compiler] Set the m4_10 (Z scale) value to 1 when constructing an AffineMatrix from an SVG matrix**
-            - **Author:** jason-simmons
-            - **Merged:** 2025-08-15
-            - **Description:** This PR fixes an issue in the `vector_graphics_compiler` where the Z scale value was not being correctly set when parsing SVG matrices. This change ensures that the matrix is correctly constructed, which is important for proper rendering after a recent engine change.
+            🔥🔥 **[#9813](https://github.com/dart-lang/sdk/#173373): [vector_graphics_compiler] Set the m4_10 (Z scale) value to 1 when constructing an AffineMatrix from an SVG matrix**
+              - **Author:** jason-simmons
+              - **Merged:** 2025-08-15
+              - **Description:** This PR fixes an issue in the `vector_graphics_compiler` where the Z scale value was not being correctly set when parsing SVG matrices. This change ensures that the matrix is correctly constructed, which is important for proper rendering after a recent engine change.
             </example>
 
             ## Step 6: Create the report
@@ -123,15 +143,15 @@ jobs:
             <example>
             ## flutter/flutter
 
-            - **[#173807](https://github.com/flutter/flutter/pull/173807): [Impeller] Add exynos9820 and exynos9825 to bad soc list**
-                - **Author:** johnpryan
-                - **Merged:** 2025-08-16T00:42:02Z
-                - **Description:** Adds the Exynos 9820 and 9825 chipsets to the list of GPUs on which Impeller should not be used. This will cause Flutter to fall back to using the OpenGL backend on devices with these GPUs, which will work around otherwise-present graphics glitches.
+            **[#173807](https://github.com/flutter/flutter/pull/173807): [Impeller] Add exynos9820 and exynos9825 to bad soc list**
+              - **Author:** johnpryan
+              - **Merged:** 2025-08-16T00:42:02Z
+              - **Description:** Adds the Exynos 9820 and 9825 chipsets to the list of GPUs on which Impeller should not be used. This will cause Flutter to fall back to using the OpenGL backend on devices with these GPUs, which will work around otherwise-present graphics glitches.
 
-            - **[#173812](https://github.com/flutter/flutter/pull/173812): Reland "[infra] Remove bringup: true from android emu tests"**
-                - **Author:** zanderso
-                - **Merged:** 2025-08-15T23:49:24Z
-                - **Description:** Removes the `bringup: true` flag from several Android emulator tests in the CI configuration, indicating that the tests are now considered stable.
+            **[#173812](https://github.com/flutter/flutter/pull/173812): Reland "[infra] Remove bringup: true from android emu tests"**
+              - **Author:** zanderso
+              - **Merged:** 2025-08-15T23:49:24Z
+              - **Description:** Removes the `bringup: true` flag from several Android emulator tests in the CI configuration, indicating that the tests are now considered stable.
             </example>
 
             This is an example of a report for the dart-lang/site-www repo with no pull requests found:
