@@ -20,7 +20,7 @@ jobs:
   trying:
     runs-on: 'ubuntu-latest'
     permissions:
-      contents: 'read'
+      contents: 'write'
       id-token: 'write'
       issues: 'read'
       pull-requests: 'read'
