@@ -48,7 +48,7 @@ jobs:
             comments using this command:
 
             ```shell
-            gh pr list --repo flutter/flutter --search "merged:2025-09-01..2025-9-07 sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:app/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
+            gh pr list --repo flutter/flutter --search "merged:2025-09-01..2025-09-07 sort:merged-desc -author:engine-flutter-autoroll -author:flutter-roller -author:app/dependabot" --json number,title,author,mergedAt,body,comments --limit 1000
             ```
 
             Once you retrieve this information, output a summary for each pull
