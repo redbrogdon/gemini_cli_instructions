@@ -24,6 +24,8 @@ jobs:
   #    pull-requests: 'read'
   #  outputs:
     steps:
+      - name: Set GH_TOKEN
+        run: echo "GH_TOKEN=$GITHUB_TOKEN" >> $GITHUB_ENV
       - name: 'Run Gemini'
         id: 'run_gemini'
         uses: 'google-github-actions/run-gemini-cli@v0' # ratchet:exclude
