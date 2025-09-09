@@ -39,7 +39,7 @@ jobs:
           echo "The last weekday was: $START_DATE"
           echo "START_DATE=$START_DATE" >> $GITHUB_OUTPUT
       - name: 'Calculate end date'
-        id: calcluate_end_date
+        id: calculate_end_date
         run: |
           END_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
           echo "Yesterday was: $END_DATE"
