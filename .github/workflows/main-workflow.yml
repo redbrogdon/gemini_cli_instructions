@@ -54,7 +54,8 @@ jobs:
       issues: 'read'
       pull-requests: 'read'
     with:
-        repo_account: flutter
-        repo_name: flutter
-        start_date: ${{ needs.calculate_dates.outputs.start_date }}
-        end_date: ${{ needs.calculate_dates.outputs.end_date }}
+      repo_account: flutter
+      repo_name: flutter
+      start_date: ${{ needs.calculate_dates.outputs.start_date }}
+      end_date: ${{ needs.calculate_dates.outputs.end_date }}
+    secrets: inherit
