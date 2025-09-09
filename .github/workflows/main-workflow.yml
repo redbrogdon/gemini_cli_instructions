@@ -2,7 +2,7 @@ name: 'Generate all GitHub reports'
 
 on:
   schedule:
-    - cron: '0 5 * * *' # Runs every day at midnight
+    - cron: '0 0 * * *' # Runs every day at midnight
   workflow_dispatch:
 
 concurrency:
@@ -87,21 +87,19 @@ jobs:
       - name: 'Download report artifacts'
         uses: actions/download-artifact@v4
         with:
-          path: github_summary/reports/
+          path: /tmp/reports
       - name: 'Configure Git'
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: 'Create combined report'
+      - name: 'Create, commit, and push combined report'
         run: |
           COMBINED_REPORT_PATH="github_summary/reports/summary-combined-${{ needs.calculate_dates.outputs.start_date }}-to-${{ needs.calculate_dates.outputs.end_date }}.md"
-          find github_summary/reports/ -type f -name '*-${{ needs.calculate_dates.outputs.start_date }}-to-${{ needs.calculate_dates.outputs.end_date }}.md' -not -name 'summary-combined-*.md' | sort | while read -r report; do
+          find /tmp/reports/ -type f -name '*.md' | sort | while read -r report; do
             cat "$report" >> "$COMBINED_REPORT_PATH"
             echo "" >> "$COMBINED_REPORT_PATH"
             echo "" >> "$COMBINED_REPORT_PATH"
           done
-      - name: 'Commit and push reports'
-        run: |
-          git add github_summary/reports/
+          git add "$COMBINED_REPORT_PATH"
           git commit -m "Adds reports for ${{ needs.calculate_dates.outputs.start_date }} to ${{ needs.calculate_dates.outputs.end_date }}."
           git push
