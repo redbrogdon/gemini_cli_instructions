@@ -48,6 +48,11 @@ jobs:
   flutter_flutter_report:
     needs: calculate_dates
     uses: ./.github/workflows/individual-report.yml
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      issues: 'read'
+      pull-requests: 'read'
     with:
         repo_account: flutter
         repo_name: flutter
