@@ -1,4 +1,6 @@
+.DS_Store
 firebase-debug.log
+
 # gemini-cli settings
 .gemini/
 
