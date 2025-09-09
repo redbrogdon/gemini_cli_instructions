@@ -1,0 +1,58 @@
+name: 'Generate all GitHub reports'
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Runs every day at midnight
+  workflow_dispatch:
+
+concurrency:
+  group: '${{ github.workflow }}'
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: 'bash'
+
+jobs:
+  calculate_dates:
+    runs-on: 'ubuntu-latest'
+    outputs:
+      start_date: ${{ steps.calculate_start_date.outputs.start_date }}
+      end_date: ${{ steps.calculate_end_date.outputs.end_date }}
+    steps:
+      - name: 'Calculate start date'
+        id: calculate_start_date
+        run: |
+          DOW=$(date +'%u')
+
+          if [[ "$DOW" -eq 1 ]]; then
+            # If it's Monday, get Friday's date (3 days ago)
+            START_DATE=$(date -d '3 days ago' +'%Y-%m-%d')
+          elif [[ "$DOW" -eq 7 ]]; then
+            # If it's Sunday, get Friday's date (2 days ago)
+            START_DATE=$(date -d '2 days ago' +'%Y-%m-%d')
+          else
+            # Otherwise, just get yesterday's date
+            START_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
+          fi
+
+          echo "The last weekday was: $START_DATE"
+          echo "START_DATE=$START_DATE" >> $GITHUB_OUTPUT
+      - name: 'Calculate end date'
+        id: calcluate_end_date
+        run: |
+          END_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
+          echo "Yesterday was: $END_DATE"
+          echo "END_DATE=$END_DATE" >> $GITHUB_OUTPUT
+
+  flutter_flutter_report:
+    needs: calculate_dates
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Create individual report
+        uses: ./.github/workflows/individual-report.yml
+        with:
+          repo_account: flutter
+          repo_name: flutter
+          start_date: ${{ needs.calculate_dates.outputs.start_date }}
+          end_date: ${{ needs.calculate_dates.outputs.end_date }}
