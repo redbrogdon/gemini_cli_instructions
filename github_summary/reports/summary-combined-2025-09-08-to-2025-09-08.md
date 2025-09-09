@@ -1,3 +1,33 @@
+## dart-lang/ai
+
+No pull requests were merged during this time.
+
+
+## dart-lang/language
+
+No pull requests were merged during this time.
+
+
+## dart-lang/native
+
+No pull requests were merged during this time.
+
+
+## dart-lang/sdk
+
+No pull requests were merged during this time.
+
+
+## flutter/ai
+
+No pull requests were merged during this time.
+
+
+## flutter/codelabs
+
+No pull requests were merged during this time.
+
+
 ## flutter/flutter
 
 **[#174673](https://github.com/flutter/flutter/pull/174673): Nav bar static components respect ambient MediaQueryData**
@@ -59,3 +89,36 @@
   - **Author:** bleroux
   - **Merged:** 2025-09-08
   - **Description:** Fixes an issue where `DropdownMenuFormField` would not clear the text field value when the form is reset and `DropdownMenuFormField.initialSelection` is null. This change ensures that the text field is cleared as expected. This addresses GitHub issue #174578.
+
+
+## flutter/packages
+
+🔥🔥 **[#9815](https://github.com/flutter/packages/pull/9815): [url_launcher] fix: Link widget Tab traversal**
+  - **Author:** pedromassango
+  - **Merged:** 2025-09-08
+  - **Description:** Fixes an issue where wrapping a widget, like a button, with the `Link` widget would result in two focusable elements, requiring the user to press Tab twice. This was caused by conflicting semantics between the `Link` and its child. The fix wraps the `Link`'s child in a `MergeSemantics` widget, which combines the semantics of the `Link` and its child into a single node. This change also required an engine-level fix to ensure that the `linkUrl` is correctly propagated when semantics are merged. This addresses issue [#157689](https://github.com/flutter/flutter/issues/157689).
+
+
+## flutter/samples
+
+No pull requests were merged during this time.
+
+
+## flutter/website
+
+**[#12415](https://github.com/flutter/website/pull/12415): Adding a link to the experimental GUI SDK**
+  - **Author:** sfshaza2
+  - **Merged:** 2025-09-08
+  - **Description:** Adds a link to the experimental GenUI SDK for Flutter to the AI toolkit section of the side navigation. This change addresses issue #12413, making the new SDK more discoverable to developers.
+
+**[#12417](https://github.com/flutter/website/pull/12417): Updates the supported version of macOS**
+  - **Author:** sfshaza2
+  - **Merged:** 2025-09-08
+  - **Description:** Updates the minimum supported macOS version for Flutter development from macOS 12 (Monterey) to macOS 13 (Ventura). This pull request addresses issue #12380, ensuring the documentation reflects the latest system requirements.
+
+**[#12409](https://github.com/flutter/website/pull/12409): chore: update broken xz link in Linux documentation**
+  - **Author:** mateusdegobi
+  - **Merged:** 2025-09-08
+  - **Description:** Fixes a broken link for the `xz` utility in the Linux installation documentation. The URL has been updated to its new location, ensuring developers can access the correct resources.
+
+
