@@ -47,12 +47,9 @@ jobs:
 
   flutter_flutter_report:
     needs: calculate_dates
-    runs-on: 'ubuntu-latest'
-    steps:
-      - name: Create individual report
-        uses: redbrogdon/gemini_cli_instructions/.github/workflows/individual-report.yml
-        with:
-          repo_account: flutter
-          repo_name: flutter
-          start_date: ${{ needs.calculate_dates.outputs.start_date }}
-          end_date: ${{ needs.calculate_dates.outputs.end_date }}
+    uses: ./.github/workflows/individual-report.yml
+    with:
+        repo_account: flutter
+        repo_name: flutter
+        start_date: ${{ needs.calculate_dates.outputs.start_date }}
+        end_date: ${{ needs.calculate_dates.outputs.end_date }}
