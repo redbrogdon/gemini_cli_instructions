@@ -74,3 +74,25 @@ jobs:
       start_date: ${{ needs.calculate_dates.outputs.start_date }}
       end_date: ${{ needs.calculate_dates.outputs.end_date }}
     secrets: inherit
+
+  commit_reports:
+    name: 'Commit reports'
+    needs: [calculate_dates, generate_individual_reports]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repo'
+        uses: actions/checkout@v4
+      - name: 'Download report artifacts'
+        uses: actions/download-artifact@v4
+        with:
+          name: reports
+          path: github_summary/reports/
+      - name: 'Configure Git'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: 'Commit and push reports'
+        run: |
+          git add github_summary/reports/
+          git commit -m "Adds reports for ${{ needs.calculate_dates.outputs.start_date }} to ${{ needs.calculate_dates.outputs.end_date }}."
+          git push

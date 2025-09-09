@@ -39,7 +39,6 @@ jobs:
         with:
           gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
           gemini_model: 'gemini-2.5-pro'
-          gemini_debug: true
           prompt: |-
             ## Role
 
@@ -151,25 +150,15 @@ jobs:
             ## Step 7: Save the report
 
             Write the report to a markdown file in the "reports" directory.
-            For the filename, use the format 
-            "summary-[repo_account]-[repo_name]-[start_date]-to-[end_date].md".
-            For example, if the report was for flutter/flutter with a
-            start_date of 2025-08-01 and an end_date of 
-            2025-08-02, the filename should be
-            "summary-flutter-flutter-2025-08-01-to-2025-08-02.md".
+            For the filename, use
+            "summary-${{ inputs.repo_account }}-${{ inputs.repo_name }}-${{ inputs.start_date }}-to-${{ inputs.end_date }}.md"
 
             ## Output Specification
 
             The output **MUST** be a markdown-formatted report as described
             above. Do not include any additional content.
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: Commit and Push new file
-        run: |
-          git fetch origin
-          git rebase origin main
-          git add github_summary/reports/
-          git commit -m "Adds ${{ inputs.repo_account }}/${{ inputs.repo_name }} report."
-          git push
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: github_summary/reports/summary-${{ inputs.repo_account }}-${{ inputs.repo_name }}-${{ inputs.start_date }}-to-${{ inputs.end_date }}.md
