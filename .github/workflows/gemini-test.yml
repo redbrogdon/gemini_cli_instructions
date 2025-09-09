@@ -17,15 +17,14 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  trying:
+  calculate_dates:
     runs-on: 'ubuntu-latest'
-    permissions:
-      contents: 'write'
-      id-token: 'write'
-      issues: 'read'
-      pull-requests: 'read'
+    outputs:
+      start_date: ${{ steps.calculate_start_date.outputs.start_date }}
+      end_date: ${{ steps.calculate_end_date.outputs.end_date }}
     steps:
       - name: 'Calculate start date'
+        id: calculate_start_date
         run: |
           DOW=$(date +'%u')
 
@@ -41,16 +40,26 @@ jobs:
           fi
 
           echo "The last weekday was: $START_DATE"
-          echo "START_DATE=$START_DATE" >> $GITHUB_ENV
+          echo "START_DATE=$START_DATE" >> $GITHUB_OUTPUT
       - name: 'Calculate end date'
+        id: calcluate_end_date
         run: |
           END_DATE=$(date -d 'yesterday' +'%Y-%m-%d')
           echo "Yesterday was: $END_DATE"
-          echo "END_DATE=$END_DATE" >> $GITHUB_ENV
-      - name: 'Check out repo'
-        uses: 'actions/checkout@v4'
-      - name: 'Run Gemini'
-        id: 'run_gemini'
+          echo "END_DATE=$END_DATE" >> $GITHUB_OUTPUT
+
+  flutter_flutter_report:
+    needs: calculate_dates
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      issues: 'read'
+      pull-requests: 'read'
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+      - name: Run Gemini
         uses: 'google-github-actions/run-gemini-cli@v0'
         with:
           gemini_api_key: '${{ secrets.GEMINI_API_KEY }}'
@@ -79,11 +88,11 @@ jobs:
 
             ## Step 1: Determine start_date
 
-            The value for start_date is ${{ env.START_DATE }}.
+            The value for start_date is ${{ needs.calculate_dates.outputs.start_date }}.
 
             ## Step 2: Determine end_date
 
-            The value for end_date is ${{ env.END_DATE }}.
+            The value for end_date is ${{ needs.calculate_dates.outputs.end_date }}.
 
             ## Step 3: Retrieve pull request data
 
