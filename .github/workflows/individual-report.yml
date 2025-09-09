@@ -47,7 +47,7 @@ jobs:
 
             ## Primary Directive
 
-            You will retrieve pull request data from the ${{ github.event.inputs.repo_account }}/${{ github.event.inputs.repo_name }} GitHub repo using the `gh` command line tool, and analyze the pull requests (including their diffs). You will then generate a summary for each pull request, combine these summaries into a report, and save that report to a file.
+            You will retrieve pull request data from the ${{ inputs.repo_account }}/${{ inputs.repo_name }} GitHub repo using the `gh` command line tool, and analyze the pull requests (including their diffs). You will then generate a summary for each pull request, combine these summaries into a report, and save that report to a file.
 
             ## Critical Constraints
 
@@ -63,11 +63,11 @@ jobs:
 
             ## Step 1: Determine start_date
 
-            The value for start_date is ${{ github.event.inputs.start_date }}.
+            The value for start_date is ${{ inputs.start_date }}.
 
             ## Step 2: Determine end_date
 
-            The value for end_date is ${{ github.event.inputs.end_date }}.
+            The value for end_date is ${{ inputs.end_date }}.
 
             ## Step 3: Retrieve pull request data
 
@@ -169,5 +169,5 @@ jobs:
       - name: Commit and Push new file
         run: |
           git add .
-          git commit -m "Adds ${{ github.event.inputs.repo_account }}/${{ github.event.inputs.repo_name }} report."
+          git commit -m "Adds ${{ inputs.repo_account }}/${{ inputs.repo_name }} report."
           git push
