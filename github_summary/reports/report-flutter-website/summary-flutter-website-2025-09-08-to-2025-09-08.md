@@ -13,4 +13,4 @@
 **[#12409](https://github.com/flutter/website/pull/12409): chore: update broken xz link in Linux documentation**
   - **Author:** mateusdegobi
   - **Merged:** 2025-09-08
-  - **Description:** Updates a broken link to the `xz` utility in the Linux installation documentation. The new link points to the correct location at https://tukaani.org/xz/.
+  - **Description:** Updates a broken link to the XZ Utils website in the Linux installation documentation. The new link points to the correct location at https://tukaani.org/xz/.
