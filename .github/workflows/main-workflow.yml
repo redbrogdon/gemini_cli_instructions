@@ -50,7 +50,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - name: Create individual report
-        uses: ./.github/workflows/individual-report.yml
+        uses: redbrogdon/gemini_cli_instructions/.github/workflows/individual-report.yml
         with:
           repo_account: flutter
           repo_name: flutter
