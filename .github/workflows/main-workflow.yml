@@ -45,8 +45,23 @@ jobs:
           echo "Yesterday was: $END_DATE"
           echo "END_DATE=$END_DATE" >> $GITHUB_OUTPUT
 
-  flutter_flutter_report:
+  generate_individual_reports:
+    name: 'Generate report for ${{ matrix.repo.account }}/${{ matrix.repo.name }}'
     needs: calculate_dates
+    strategy:
+      fail-fast: false
+      matrix:
+        repo:
+          - { account: 'dart-lang', name: 'ai' }
+          - { account: 'dart-lang', name: 'language' }
+          - { account: 'dart-lang', name: 'native' }
+          - { account: 'dart-lang', name: 'sdk' }
+          - { account: 'flutter', name: 'ai' }
+          - { account: 'flutter', name: 'codelabs' }
+          - { account: 'flutter', name: 'flutter' }
+          - { account: 'flutter', name: 'packages' }
+          - { account: 'flutter', name: 'samples' }
+          - { account: 'flutter', name: 'website' }
     uses: ./.github/workflows/individual-report.yml
     permissions:
       contents: 'write'
@@ -54,8 +69,8 @@ jobs:
       issues: 'read'
       pull-requests: 'read'
     with:
-      repo_account: flutter
-      repo_name: flutter
+      repo_account: ${{ matrix.repo.account }}
+      repo_name: ${{ matrix.repo.name }}
       start_date: ${{ needs.calculate_dates.outputs.start_date }}
       end_date: ${{ needs.calculate_dates.outputs.end_date }}
     secrets: inherit
