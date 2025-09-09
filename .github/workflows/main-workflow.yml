@@ -100,7 +100,7 @@ jobs:
             echo "" >> "$COMBINED_REPORT_PATH"
             echo "" >> "$COMBINED_REPORT_PATH"
           done
-          mv "$COMBINED_REPORT_PATH" github_summary/reports/latest-combined.md
+          cp -f "$COMBINED_REPORT_PATH" github_summary/reports/latest-combined.md
           git add "$COMBINED_REPORT_PATH" github_summary/reports/latest-combined.md
           git commit -m "Adds report for ${{ needs.calculate_dates.outputs.start_date }} to ${{ needs.calculate_dates.outputs.end_date }}."
           git push
