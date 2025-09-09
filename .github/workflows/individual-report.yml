@@ -160,5 +160,5 @@ jobs:
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
-          name: reports
+          name: report-${{ inputs.repo_account }}-${{ inputs.repo_name }}
           path: github_summary/reports/summary-${{ inputs.repo_account }}-${{ inputs.repo_name }}-${{ inputs.start_date }}-to-${{ inputs.end_date }}.md
