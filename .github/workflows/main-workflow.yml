@@ -52,15 +52,15 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - { account: 'dart-lang', name: 'ai' }
-          - { account: 'dart-lang', name: 'language' }
-          - { account: 'dart-lang', name: 'native' }
-          - { account: 'dart-lang', name: 'sdk' }
-          - { account: 'flutter', name: 'ai' }
-          - { account: 'flutter', name: 'codelabs' }
+          # - { account: 'dart-lang', name: 'ai' }
+          # - { account: 'dart-lang', name: 'language' }
+          # - { account: 'dart-lang', name: 'native' }
+          # - { account: 'dart-lang', name: 'sdk' }
+          # - { account: 'flutter', name: 'ai' }
+          # - { account: 'flutter', name: 'codelabs' }
           - { account: 'flutter', name: 'flutter' }
-          - { account: 'flutter', name: 'packages' }
-          - { account: 'flutter', name: 'samples' }
+          # - { account: 'flutter', name: 'packages' }
+          # - { account: 'flutter', name: 'samples' }
           - { account: 'flutter', name: 'website' }
     uses: ./.github/workflows/individual-report.yml
     permissions:
@@ -78,6 +78,8 @@ jobs:
   commit_reports:
     name: 'Commit reports'
     needs: [calculate_dates, generate_individual_reports]
+    permissions:
+      contents: 'write'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout repo'
