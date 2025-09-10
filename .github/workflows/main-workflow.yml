@@ -52,15 +52,15 @@ jobs:
       fail-fast: false
       matrix:
         repo:
-          - { account: 'dart-lang', name: 'ai' }
-          - { account: 'dart-lang', name: 'language' }
-          - { account: 'dart-lang', name: 'native' }
-          - { account: 'dart-lang', name: 'sdk' }
-          - { account: 'flutter', name: 'ai' }
-          - { account: 'flutter', name: 'codelabs' }
+          # - { account: 'dart-lang', name: 'ai' }
+          # - { account: 'dart-lang', name: 'language' }
+          # - { account: 'dart-lang', name: 'native' }
+          # - { account: 'dart-lang', name: 'sdk' }
+          # - { account: 'flutter', name: 'ai' }
+          # - { account: 'flutter', name: 'codelabs' }
           - { account: 'flutter', name: 'flutter' }
-          - { account: 'flutter', name: 'packages' }
-          - { account: 'flutter', name: 'samples' }
+          # - { account: 'flutter', name: 'packages' }
+          # - { account: 'flutter', name: 'samples' }
           - { account: 'flutter', name: 'website' }
     uses: ./.github/workflows/individual-report.yml
     permissions:
@@ -75,8 +75,8 @@ jobs:
       end_date: ${{ needs.calculate_dates.outputs.end_date }}
     secrets: inherit
 
-  finalize_reports:
-    name: 'Finalize and commit'
+  combine_reports:
+    name: 'Combine reports'
     needs: [calculate_dates, generate_individual_reports]
     permissions:
       contents: 'write'
@@ -88,11 +88,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: /tmp/reports
-      - name: 'Configure Git'
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: 'Create, commit, and push combined report'
+      - name: 'Create combined report'
         run: |
           COMBINED_REPORT_PATH="github_summary/reports/summary-combined-${{ needs.calculate_dates.outputs.start_date }}-to-${{ needs.calculate_dates.outputs.end_date }}.md"
           find /tmp/reports/ -type f -name '*.md' | sort | while read -r report; do
@@ -101,6 +97,56 @@ jobs:
             echo "" >> "$COMBINED_REPORT_PATH"
           done
           cp -f "$COMBINED_REPORT_PATH" github_summary/reports/latest-combined.md
-          git add "$COMBINED_REPORT_PATH" github_summary/reports/latest-combined.md
-          git commit -m "Adds report for ${{ needs.calculate_dates.outputs.start_date }} to ${{ needs.calculate_dates.outputs.end_date }}."
+      - name: 'Upload combined report artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: combined-report
+          path: |
+            github_summary/reports/summary-combined-${{ needs.calculate_dates.outputs.start_date }}-to-${{ needs.calculate_dates.outputs.end_date }}.md
+            github_summary/reports/latest-combined.md
+
+  draft_tweets:
+    name: 'Draft tweets'
+    needs: [calculate_dates, combine_reports]
+    uses: ./.github/workflows/draft-tweets.yml
+    with:
+      start_date: ${{ needs.calculate_dates.outputs.start_date }}
+      end_date: ${{ needs.calculate_dates.outputs.end_date }}
+    secrets: inherit
+
+  draft_linkedin_posts:
+    name: 'Draft LinkedIn posts'
+    needs: [calculate_dates, combine_reports]
+    uses: ./.github/workflows/draft-linkedin.yml
+    with:
+      start_date: ${{ needs.calculate_dates.outputs.start_date }}
+      end_date: ${{ needs.calculate_dates.outputs.end_date }}
+    secrets: inherit
+
+  commit_files:
+    name: 'Commit files'
+    needs: [calculate_dates, combine_reports, draft_tweets, draft_linkedin_posts]
+    permissions:
+      contents: 'write'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repo'
+        uses: actions/checkout@v4
+      - name: 'Download all artifacts'
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/artifacts
+      - name: 'Move artifacts to the correct locations'
+        run: |
+          cp /tmp/artifacts/combined-report/* github_summary/reports/
+          cp /tmp/artifacts/tweets/* github_summary/reports/
+          cp /tmp/artifacts/linkedin-posts/* github_summary/reports/
+      - name: 'Configure Git'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: 'Commit and push changes'
+        run: |
+          git add github_summary/reports/*
+          git commit -m "Adds report and social media drafts for ${{ needs.calculate_dates.outputs.start_date }} to ${{ needs.calculate_dates.outputs.end_date }}."
           git push
