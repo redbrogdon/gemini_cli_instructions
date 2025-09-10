@@ -39,7 +39,7 @@ jobs:
 
             ## Primary Directive
 
-            You will analyze the combined report of pull requests and generate two options for a
+            You will analyze the combined report of pull requests and generate five options for a
             LinkedIn post that summarizes the most interesting changes.
 
             ## Critical Constraints
