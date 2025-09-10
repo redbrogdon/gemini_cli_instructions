@@ -169,3 +169,16 @@ No pull requests were merged during this time.
 No pull requests were merged during this time.
 
 
+## flutter/flutter
+
+🔥 **[#172502](https://github.com/flutter/flutter/pull/172502): Adjust default CupertinoCheckbox size on desktop**
+  - **Author:** victorsanni
+  - **Merged:** 2025-09-09
+  - **Description:** Fixes an issue where the `CupertinoCheckbox` had excessive padding on macOS by applying a platform-dependent default tap target size. This change makes the tap target on desktop platforms match the visual size of the checkbox, while retaining the larger, accessibility-friendly tap target on mobile devices. A new `tapTargetSize` property is introduced to allow developers to override this new default behavior. This resolves issue #165140, and the change was made after a discussion about the best approach to avoid breaking changes while improving the desktop experience.
+
+
+## flutter/website
+
+No pull requests were merged during this time.
+
+
