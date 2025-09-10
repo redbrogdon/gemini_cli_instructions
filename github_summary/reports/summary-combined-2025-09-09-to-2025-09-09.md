@@ -77,3 +77,82 @@ No pull requests were merged during this time.
 No pull requests were merged during this time.
 
 
+## dart-lang/ai
+
+No pull requests were merged during this time.
+
+
+## dart-lang/language
+
+No pull requests were merged during this time.
+
+
+## dart-lang/native
+
+**[#2612](https://github.com/dart-lang/native/pull/2612): [objective_c] Add `NSBundle`**
+  - **Author:** liamappelbe
+  - **Merged:** 2025-09-09
+  - **Description:** Adds `NSBundle` to the Objective-C bindings, allowing Dart code to interact with Objective-C bundles. This resolves issue #2375.
+
+**[#2525](https://github.com/dart-lang/native/pull/2525): [ffigen] Move `LibraryImport`s from `Writer` to `Context`**
+  - **Author:** liamappelbe
+  - **Merged:** 2025-09-09
+  - **Description:** Refactors ffigen's code generation pipeline to improve how library imports are handled. It moves the library usage tracking and prefix assignment to the `Context`, making it part of the transformer pipeline. This change makes the import process more robust and less brittle, although it may occasionally import an unused library.
+
+**[#2582](https://github.com/dart-lang/native/pull/2582): [native_doc_dartifier] Improve Fixing Dart Code**
+  - **Author:** marshelino-maged
+  - **Merged:** 2025-09-09
+  - **Description:** Improves the automated Dart code fixing in `native_doc_dartifier`. The tool now returns the version of the code with the fewest analyzer errors and uses a more sophisticated single-prompt "chain-of-thought" approach for the underlying language model to reason about the fixes. This addresses issues #2490 and #2442.
+
+
+## dart-lang/sdk
+
+No pull requests were merged during this time.
+
+
+## flutter/ai
+
+No pull requests were merged during this time.
+
+
+## flutter/codelabs
+
+No pull requests were merged during this time.
+
+
+## flutter/flutter
+
+🔥 **[#172502](https://github.com/flutter/flutter/pull/172502): Adjust default CupertinoCheckbox size on desktop**
+  - **Author:** victorsanni
+  - **Merged:** 2025-09-09
+  - **Description:** Fixes an issue where `CupertinoCheckbox` had excessive padding on macOS by applying a smaller default tap target size on desktop platforms. This change introduces a `tapTargetSize` property to allow for customization, while maintaining a larger tap target on mobile devices for accessibility. The change addresses issue [#165140](https://github.com/flutter/flutter/issues/165140).
+
+
+## flutter/packages
+
+**[#9851](https://github.com/flutter/packages/pull/9851): [various] Scrub pre-Android-API <24 code**
+  - **Author:** stuartmorgan-g
+  - **Merged:** 2025-09-09
+  - **Description:** Updates multiple packages to remove support for Android API levels below 24. This change raises the minimum Flutter version to 3.35 and simplifies the codebase by removing conditional logic for older Android versions.
+
+**[#9929](https://github.com/flutter/packages/pull/9929): [google_sign_in] Add a platform interface method to clear auth tokens**
+  - **Author:** stuartmorgan-g
+  - **Merged:** 2025-09-09
+  - **Description:** Adds a new `clearAuthorizationToken` method to the `google_sign_in` platform interface. This allows developers to programmatically clear cached OAuth2 access tokens, addressing issue #173924.
+
+**[#9980](https://github.com/flutter/packages/pull/9980): Revert "[url_launcher] fix: Link widget Tab traversal"**
+  - **Author:** stuartmorgan-g
+  - **Merged:** 2025-09-09
+  - **Description:** Reverts a change that caused tree breakages. The original pull request intended to fix a tab traversal issue with the Link widget in `url_launcher_web`.
+
+
+## flutter/samples
+
+No pull requests were merged during this time.
+
+
+## flutter/website
+
+No pull requests were merged during this time.
+
+
