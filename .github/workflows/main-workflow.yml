@@ -2,7 +2,7 @@ name: 'Generate all GitHub reports'
 
 on:
   schedule:
-    - cron: '0 5 * * *' # Runs every day at 1am EST
+    - cron: '0 5 * * 1-5' # Runs every weekday at 1am EST
   workflow_dispatch:
 
 concurrency:
