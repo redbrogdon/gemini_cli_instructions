@@ -139,8 +139,6 @@ jobs:
       - name: 'Move artifacts to the correct locations'
         run: |
           cp /tmp/artifacts/combined-report/* github_summary/reports/
-          cp /tmp/artifacts/tweets/* github_summary/reports/
-          cp /tmp/artifacts/linkedin-posts/* github_summary/reports/
       - name: 'Configure Git'
         run: |
           git config --global user.name 'github-actions[bot]'

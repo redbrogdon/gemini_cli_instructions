@@ -39,8 +39,8 @@ jobs:
 
             ## Primary Directive
 
-            You will analyze the combined report of pull requests and generate five options for a
-            tweet that summarizes the most interesting changes.
+            You will analyze the combined report of pull requests, generate five options for a
+            tweet that summarizes the most interesting changes, and save those options to file.
 
             ## Critical Constraints
 
